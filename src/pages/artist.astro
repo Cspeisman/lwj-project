@@ -1,0 +1,7 @@
+---
+import {catalogClientStub, CatalogService} from "../discography/catalogService";
+import {Catalog} from "../discography/components/Catalog";
+let catalogService = new CatalogService(catalogClientStub);
+let catalogModel = await catalogService.getByArtistName('123');
+---
+<Catalog catalog={catalogModel} />
