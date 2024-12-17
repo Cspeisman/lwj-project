@@ -1,0 +1,10 @@
+---
+const {toggle} = Astro.props
+---
+
+<div>
+    <form>
+        <input type="checkbox" id="filter" name="toggle" checked={toggle} onchange="this.form.submit()">
+        <label for="filter">filter items left to try!</label>
+    </form>
+</div>
