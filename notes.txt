@@ -1,0 +1,4 @@
+Themes
+- making changes isolated
+- a clear and concise place to implement something
+- constantly step back and ask if it's better or worse
