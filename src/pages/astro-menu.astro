@@ -1,0 +1,36 @@
+---
+export const prerender = false;
+import {getMenuService} from "../lib/menu/MenuService";
+import FilterItems from "../components/FilterItems.astro";
+const toggle = (Astro.url.searchParams.get('toggle') ?? '') === 'on';
+
+let menuService = getMenuService();
+let menuItems = await menuService.getItems(toggle);
+let eaten = await menuService.getEatenItems();
+---
+<div>
+    <FilterItems toggle={toggle}/>
+    <div id="menu-items">
+        {menuItems.map(i => {
+            return (
+                    <div>
+                        <input type="checkbox" id={i.name} name={i.name} checked={eaten.has(i.name)}>
+                        <label for={i.name}>{i.name}</label>
+                    </div>
+            );
+        })}
+    </div>
+</div>
+
+<script>
+    import {actions} from 'astro:actions';
+
+    let menuItems = document.querySelector('#menu-items');
+    if (menuItems) {
+        menuItems.addEventListener('change', async (event) => {
+            event.preventDefault();
+            let target = event.target as HTMLInputElement;
+            await actions.markItemAsEaten({name: target.name});
+        })
+    }
+</script>
